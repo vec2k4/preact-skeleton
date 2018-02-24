@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'RacingSansOne';
+    src: url('../fonts/racing-sans-one.ttf') format('truetype');
+}
+
+div {
+    color: white;
+    font-family: 'RacingSansOne';
+    font-size: 24px;
+}
+
+body {
+    background-image: url('../images/background/raindrops.jpg');
+}
+
+.like {
+    width: 25px;
+    height: 25px;
+}
+

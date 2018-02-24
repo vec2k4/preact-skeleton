@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "es5",
+    "module": "es6",
+    "moduleResolution": "node",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "noEmitOnError": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "jsxFactory": "h"
+  },
+  "include": [
+    "./project/src/**/*.tsx",
+    "./project/src/**/*.ts",
+    "./project/typings/**/*.d.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}
