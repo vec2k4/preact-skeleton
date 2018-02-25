@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-import { DropDown, DropDownItem, DropDownDivider } from "../bootstrap/dropdown";
+import { Dropdown, DropdownItem, DropdownDivider } from "../bootstrap/dropdown";
 
 import * as smiley from "../../../images/smileys/smiley.gif";
 import * as like from "../../../svg/like.svg";
@@ -9,7 +9,7 @@ export interface ShellProperties {
 
 interface ShellState {
     message: string;
-    dropdownItems: DropDownItem[];
+    dropdownItems: DropdownItem[];
 }
 
 export class Shell extends Component<ShellProperties, ShellState> {
@@ -20,10 +20,10 @@ export class Shell extends Component<ShellProperties, ShellState> {
         this.state = {
             message: `Starting ${nameof<Shell>()}...`,
             dropdownItems: [
-                new DropDownItem("1st", 1),
-                new DropDownItem("2nd", 2),
-                new DropDownItem("3rd", 3),
-                new DropDownDivider(),
+                new DropdownItem("1st", 1),
+                new DropdownItem("2nd", 2),
+                new DropdownItem("3rd", 3),
+                new DropdownDivider(),
                 { name: "4th" },
                 { name: "5th" }]
         };
@@ -48,10 +48,10 @@ export class Shell extends Component<ShellProperties, ShellState> {
                     <img src={smiley} />
                 </p>
 
-                <DropDown items={state.dropdownItems}
+                <Dropdown items={state.dropdownItems}
                     onClick={item => console.log("Click", item.name, item.id)}
                     onShow={e => console.log("DropDown Show: ", e)}>
-                </DropDown>
+                </Dropdown>
             </div>
         );
     }

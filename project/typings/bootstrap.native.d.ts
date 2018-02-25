@@ -1,4 +1,7 @@
 declare module "bootstrap.native" {
+
+    // --- Dropdown
+
     type DropdownElement<T> = T & { Dropdown?: Dropdown };
 
     class Dropdown {
