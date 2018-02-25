@@ -1,5 +1,6 @@
 import { h, Component } from "preact";
 import { Dropdown, DropdownItem, DropdownDivider } from "../bootstrap/dropdown";
+import { Modal } from "../bootstrap/modal";
 
 import * as smiley from "../../../images/smileys/smiley.gif";
 import * as like from "../../../svg/like.svg";
@@ -52,6 +53,9 @@ export class Shell extends Component<ShellProperties, ShellState> {
                     onClick={item => console.log("Click", item.name, item.id)}
                     onShow={e => console.log("DropDown Show: ", e)}>
                 </Dropdown>
+
+                <Modal>
+                </Modal>
             </div>
         );
     }
