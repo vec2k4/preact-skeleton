@@ -9,7 +9,9 @@
     "noEmitOnError": true,
     "sourceMap": true,
     "jsx": "react",
-    "jsxFactory": "h"
+    "jsxFactory": "h",
+    "lib": [ "es2015", "dom", "scripthost", "es5" ],
+    "importHelpers": true
   },
   "include": [
     "./project/src/**/*.tsx",
