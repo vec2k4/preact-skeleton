@@ -31,6 +31,13 @@ module.exports = {
     module: {
         rules: [
             {
+                // Bootstrap native
+                test: /bootstrap\.native/,
+                use: {
+                    loader: 'bootstrap.native-loader'
+                }
+            },
+            {
                 // Typescript: tsx
                 test: /\.tsx?$/,
                 use: [
