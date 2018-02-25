@@ -1,4 +1,8 @@
 declare module "bootstrap.native" {
+    interface DropDownElement extends Element {
+        Dropdown?: Dropdown;
+    }
+
     class Dropdown {
         /**
         * This will show up in d.ts file

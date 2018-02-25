@@ -1,5 +1,5 @@
 import { h, Component } from "preact";
-import { Dropdown } from "bootstrap.native";
+import { Dropdown, DropDownElement } from "bootstrap.native";
 
 export interface DropDownItem {
     id?: string | number;
@@ -29,9 +29,8 @@ export interface DropDownProperties {
 }
 
 interface DropDownState {
-    dropdown?: Dropdown;
     root?: Element;
-    button?: Element;
+    button?: DropDownElement;
 }
 
 export class DropDown extends Component<DropDownProperties, DropDownState> {
@@ -47,7 +46,7 @@ export class DropDown extends Component<DropDownProperties, DropDownState> {
 
     componentDidMount() {
         const state = this.state;
-        state.dropdown = new Dropdown(state.button);
+        const dropdown = new Dropdown(state.button);
 
         // Attach event handlers
         if (this.props.onShow) {
