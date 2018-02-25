@@ -1,7 +1,5 @@
 declare module "bootstrap.native" {
-    interface DropDownElement extends Element {
-        Dropdown?: Dropdown;
-    }
+    type DropdownElement<T> = T & { Dropdown?: Dropdown };
 
     class Dropdown {
         /**
