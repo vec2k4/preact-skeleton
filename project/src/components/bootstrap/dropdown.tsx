@@ -23,6 +23,9 @@ export interface DropDownProperties {
     items: DropDownItem[];
     onClick?: (item: DropDownItem) => void;
     onShow?: (event: CustomEvent) => void;
+    onShown?: (event: CustomEvent) => void;
+    onHide?: (event: CustomEvent) => void;
+    onHidden?: (event: CustomEvent) => void;
 }
 
 interface DropDownState {
@@ -32,6 +35,11 @@ interface DropDownState {
 }
 
 export class DropDown extends Component<DropDownProperties, DropDownState> {
+    private static readonly showEventType = "show.bs.dropdown";
+    private static readonly shownEventType = "shown.bs.dropdown";
+    private static readonly hideEventType = "hide.bs.dropdown";
+    private static readonly hiddenEventType = "hidden.bs.dropdown";
+
     constructor(props: DropDownProperties) {
         super(props);
         this.state = {};
@@ -43,7 +51,16 @@ export class DropDown extends Component<DropDownProperties, DropDownState> {
 
         // Attach event handlers
         if (this.props.onShow) {
-            state.root.addEventListener("show.bs.dropdown", this.props.onShow, false);
+            state.root.addEventListener(DropDown.showEventType, this.props.onShow, false);
+        }
+        if (this.props.onShown) {
+            state.root.addEventListener(DropDown.shownEventType, this.props.onShown, false);
+        }
+        if (this.props.onHide) {
+            state.root.addEventListener(DropDown.hideEventType, this.props.onHide, false);
+        }
+        if (this.props.onHidden) {
+            state.root.addEventListener(DropDown.hiddenEventType, this.props.onHidden, false);
         }
     }
 
@@ -52,7 +69,16 @@ export class DropDown extends Component<DropDownProperties, DropDownState> {
 
         // Detach event handlers
         if (this.props.onShow) {
-            state.root.removeEventListener("show.bs.dropdown", this.props.onShow, false);
+            state.root.removeEventListener(DropDown.showEventType, this.props.onShow, false);
+        }
+        if (this.props.onShown) {
+            state.root.removeEventListener(DropDown.shownEventType, this.props.onShown, false);
+        }
+        if (this.props.onHide) {
+            state.root.removeEventListener(DropDown.hideEventType, this.props.onHide, false);
+        }
+        if (this.props.onHidden) {
+            state.root.removeEventListener(DropDown.hiddenEventType, this.props.onHidden, false);
         }
     }
 
@@ -69,7 +95,14 @@ export class DropDown extends Component<DropDownProperties, DropDownState> {
         );
     }
 
-    fillDropdown = (item: DropDownItem) => !item.name ? (<div class="dropdown-divider"></div>) : (<a class="dropdown-item" onClick={e => this.props.onClick(item)} href="#">{item.name}</a>);
+    fillDropdown = (item: DropDownItem) => !item.name ? (<div class="dropdown-divider"></div>) : (<a class="dropdown-item" onClick={e => this.onClick(e, item)} href="#">{item.name}</a>);
+
+    onClick = (ev: MouseEvent, item: DropDownItem) => {
+        if (this.props.onClick) {
+            ev.preventDefault();
+            this.props.onClick(item);
+        }
+    }
 
     setRoot = (el: Element) => this.state.root = el;
 
