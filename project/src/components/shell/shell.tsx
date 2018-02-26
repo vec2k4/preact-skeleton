@@ -42,10 +42,11 @@ export class Shell extends Component<ShellProperties, ShellState> {
     render(props: ShellProperties, state: ShellState) {
         return (
             <div>
+                <custom-element custom_attribute="a custom element & attribute defined in typings/jsx" /> 
                 <Navigation items={["item1"]} />
                 <div class="container">
                     <p>
-                        <img class="like" src={like} />
+                        <img src={like} class="like"/>
                         <span style="padding-left: 10px;">{state.message}</span>
                     </p>
                     <p>
