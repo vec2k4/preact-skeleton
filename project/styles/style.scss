@@ -1,0 +1,19 @@
+$font-stack: Helvetica, sans-serif;
+$primary-color: black;
+
+body {
+    font: 100% $font-stack;
+    color: $primary-color;
+    background-image: url('../images/background/raindrops.jpg');
+}
+
+div {
+    color: $primary-color;
+    font-family: 'RacingSansOne';
+    font-size: 24px;
+}
+
+.like {
+    width: 25px;
+    height: 25px;
+}

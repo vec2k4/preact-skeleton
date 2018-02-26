@@ -55,6 +55,16 @@ module.exports = {
                 ]
             },
             {
+                // Styles: sass
+                test: /\.scss$/,
+                use: [
+                    'style-loader',
+                    'css-loader',
+                    //'postcss-loader',
+                    'sass-loader'
+                ]
+            },
+            {
                 // Images: png, jpg, gif and svg
                 test: /\.(png|jpe?g|gif|svg)$/,
                 use: [

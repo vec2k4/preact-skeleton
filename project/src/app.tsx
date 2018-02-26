@@ -1,7 +1,8 @@
 import * as tsnameof from "ts-nameof";
 
-import "bootstrap-css-only";
+//import "bootstrap-css-only";
 import "../styles/style.css";
+import "../styles/style.scss";
 
 import { h, render } from "preact";
 import { Shell } from "./components/shell/shell";
