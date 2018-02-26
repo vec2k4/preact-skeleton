@@ -70,10 +70,31 @@ module.exports = {
                 ]
             },
             {
-                // Images: png, jpg, gif, svg
-                test: /\.jpe?g$|\.gif$|\.png$|^(?!.*\.inline\.svg$).*\.svg$/,
+                // Images: png, jpg, jpeg, gif
+                test: /\.(png|jpe?g|gif)$/,
                 use: [
                     "file-loader"
+                ]
+            },
+            {
+                // File svg
+                test: /^(?!.*\.inline\.svg$).*\.svg$/,
+                use: [
+                    "file-loader",
+                    {
+                        // https://github.com/rpominov/svgo-loader & https://github.com/svg/svgo
+                        loader: 'svgo-loader',
+                        options: {
+                            plugins: [
+                                { removeComments: true },
+                                { removeTitle: true },
+                                { mergePaths: true },
+                                { convertPathData: true },
+                                { removeViewBox: true },
+                                { removeDimensions: true }
+                            ]
+                        }
+                    }
                 ]
             },
             {
@@ -83,7 +104,22 @@ module.exports = {
                     // https://github.com/kossnocorp/desvg
                     "desvg-loader/preact", 
                     // https://github.com/dolbyzerr/svg-loader
-                    "svg-loader"
+                    "svg-loader",
+                    {
+                        // https://github.com/rpominov/svgo-loader & https://github.com/svg/svgo
+                        loader: 'svgo-loader',
+                        options: {
+                            plugins: [
+                                { removeComments: true },
+                                { removeTitle: true },
+                                { mergePaths: true },
+                                { convertPathData: true },
+                                { removeViewBox: true },
+                                { removeDimensions: true },
+                                { removeXMLNS: true },
+                            ]
+                        }
+                    }
                 ]
             },
             {

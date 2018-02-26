@@ -26,6 +26,8 @@
     "sass-loader": "^6.0.6",
     "style-loader": "^0.20.2",
     "svg-loader": "0.0.2",
+    "svgo": "^1.0.5",
+    "svgo-loader": "^2.1.0",
     "ts-loader": "^3.5.0",
     "ts-nameof": "^0.10.3",
     "ts-nameof-loader": "^1.0.1",
