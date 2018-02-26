@@ -1,6 +1,6 @@
 import * as tsnameof from "ts-nameof";
 
-//import "bootstrap-css-only";
+import "bootstrap/scss/bootstrap.scss"; // https://getbootstrap.com/docs/4.0/getting-started/introduction/
 import "../styles/style.css";
 import "../styles/style.scss";
 
