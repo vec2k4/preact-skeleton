@@ -1,6 +1,7 @@
 import { h, Component } from "preact";
 import { Dropdown, DropdownItem, DropdownDivider } from "../bootstrap/dropdown";
 import { Modal } from "../bootstrap/modal";
+import { Navigation } from "../bootstrap/navigation";
 
 import * as smiley from "../../../images/smileys/smiley.gif";
 import * as like from "../../../svg/like.svg";
@@ -40,23 +41,36 @@ export class Shell extends Component<ShellProperties, ShellState> {
 
     render(props: ShellProperties, state: ShellState) {
         return (
-            <div class="container">
-                <p>
-                    <img class="like" src={like} />
-                    <span style="padding-left: 10px;">{state.message}</span>
-                </p>
-                <p>
-                    <img src={smiley} />
-                </p>
+            <div>
+                <Navigation items={["item1"]} />
+                <div class="container">
+                    <p>
+                        <img class="like" src={like} />
+                        <span style="padding-left: 10px;">{state.message}</span>
+                    </p>
+                    <p>
+                        <img src={smiley} />
+                    </p>
 
-                <Dropdown items={state.dropdownItems}
-                    onClick={item => console.log("Click", item.name, item.id)}
-                    onShow={e => console.log("DropDown Show: ", e)}>
-                </Dropdown>
+                    <Dropdown items={state.dropdownItems}
+                        onClick={item => console.log("Click", item.name, item.id)}
+                        onShow={e => console.log("DropDown Show: ", e)}>
+                    </Dropdown>
 
-                <Modal>
-                </Modal>
+                    <Modal>
+                    </Modal>
+
+                    {this.populatePage()}
+                </div>
             </div>
         );
+    }
+
+    populatePage = () => {
+        let elements: JSX.Element[] = [];
+        for (let i = 0; i < 100; i++) {
+            elements.push(<span>Item {i}<br /></span>);
+        }
+        return elements;
     }
 }
