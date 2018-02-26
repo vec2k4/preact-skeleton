@@ -1,8 +1,8 @@
 // https://webpack.js.org/guides/
 
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
@@ -70,10 +70,20 @@ module.exports = {
                 ]
             },
             {
-                // Images: png, jpg, gif and svg
-                test: /\.(png|jpe?g|gif|svg)$/,
+                // Images: png, jpg, gif, svg
+                test: /\.jpe?g$|\.gif$|\.png$|^(?!.*\.inline\.svg$).*\.svg$/,
                 use: [
                     "file-loader"
+                ]
+            },
+            {
+                // Inline svg
+                test: /\.inline.svg$/,
+                use: [
+                    // https://github.com/kossnocorp/desvg
+                    "desvg-loader/preact", 
+                    // https://github.com/dolbyzerr/svg-loader
+                    "svg-loader"
                 ]
             },
             {
