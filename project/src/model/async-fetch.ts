@@ -1,8 +1,11 @@
+import * as urljoin from "url-join";
+
 export class AsyncFetch {
     static async fetchIndex() {
         try {
-            var request = await fetch("http://localhost:8080/index.html");
-            var text = await request.text();
+            const url = urljoin("http://localhost:8080", "index.html");
+            const request = await fetch(url);
+            const text = await request.text();
             console.log(text);
         } catch (err) {
             console.log("Error: ", err)
