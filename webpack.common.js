@@ -16,8 +16,12 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(["dist"]),
+
+        // https://github.com/jantimon/html-webpack-plugin
         new HtmlWebpackPlugin({
-            title: "TestApplication"
+            title: "TestApplication",
+            template: "./project/index.template.html",
+            filename: "index.html"
         })
     ],
     resolve: {
