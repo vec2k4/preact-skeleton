@@ -1,0 +1,3 @@
+* Install and configure postcss(-loader) & autoprefixer
+  -> https://github.com/gdi2290/angular-starter/wiki/How-to-use-Bootstrap-4-and-Sass-(and-jQuery)
+  -> https://github.com/shakacode/sass-resources-loader
