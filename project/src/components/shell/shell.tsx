@@ -3,8 +3,9 @@ import { Dropdown, DropdownItem, DropdownDivider } from "../bootstrap/dropdown";
 import { Modal } from "../bootstrap/modal";
 import { Navigation } from "../bootstrap/navigation";
 
-import * as smiley from "../../../images/smileys/smiley.gif";
-import * as like from "../../../svg/like.svg";
+import * as smiley from "../../../images/smileys/smiley.png";
+import * as like from "../../../svg/smiley.svg";
+import LikeSVG from "../../../svg/smiley.inline.svg";
 
 export interface ShellProperties {
 }
@@ -46,11 +47,21 @@ export class Shell extends Component<ShellProperties, ShellState> {
                 <Navigation items={["item1"]} />
                 <div class="container">
                     <p>
-                        <img src={like} class="like"/>
                         <span style="padding-left: 10px;">{state.message}</span>
                     </p>
                     <p>
+                        <div>
+                            <LikeSVG class="like" fill="black" style="vertical-align: middle;" />
+                            <span style="padding-left: 10px;">&lt;== Inline-SVG with hover effect by style</span>
+                        </div>
+                    </p>
+                    <p>
+                        <img src={like} class="like" />
+                        <span style="padding-left: 10px;">&lt;== File-SVG, hover effect by style not possible</span>
+                    </p>
+                    <p>
                         <img src={smiley} />
+                        <span style="padding-left: 10px;">&lt;== File-PNG</span>
                     </p>
 
                     <Dropdown items={state.dropdownItems}
