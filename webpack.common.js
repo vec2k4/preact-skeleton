@@ -38,7 +38,7 @@ module.exports = {
                 // Bootstrap native
                 test: /bootstrap\.native/,
                 use: {
-                    loader: 'bootstrap.native-loader'
+                    loader: "bootstrap.native-loader"
                 }
             },
             {
@@ -83,9 +83,9 @@ module.exports = {
                     "file-loader",
                     {
                         // https://github.com/rpominov/svgo-loader & https://github.com/svg/svgo
-                        loader: 'svgo-loader',
+                        loader: "svgo-loader",
                         options: {
-                            plugins: [
+                            plugins: [ 
                                 { removeComments: true },
                                 { removeTitle: true },
                                 { mergePaths: true },
@@ -107,7 +107,7 @@ module.exports = {
                     "svg-loader",
                     {
                         // https://github.com/rpominov/svgo-loader & https://github.com/svg/svgo
-                        loader: 'svgo-loader',
+                        loader: "svgo-loader",
                         options: {
                             plugins: [
                                 { removeComments: true },
