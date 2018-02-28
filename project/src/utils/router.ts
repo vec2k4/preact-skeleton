@@ -1,64 +1,50 @@
-
-//export type RouteSection<T> = string | Partial<T>;
-
-//export class Route<T> {
-//    constructor(...sections: RouteSection<T>[]) {
-//        for (let part of sections) {
-//            console.log(part);
-//        }
-//    }
-//}
-
-//type BlogRouteArgs = { id: number, page: number };
-
-//let route = (p: BlogRouteArgs) => new Route<BlogRouteArgs>("/blogs", { id: p.id }, "page", { page: p.page })
-
-//type SectionSetter<T> = (route: T, section: Partial<T>) => T;
-//function makeRoute<T>(...sections: (string | SectionSetter<T>)[]) {
-
-//}
-
-
-//function arg<T>(prop: keyof T) {
-//    return function setArg<T>(routeObj: T, sectionObj: Partial<T>): T {
-//        return Object.assign(routeObj, sectionObj);
-//    }
-//}
-
-//makeRoute<BlogRouteArgs>("/blogs", arg<BlogRouteArgs>("id"), "page", arg("page"));
-
-class BlogRouteArgs {
+class BlogRoute {
     id: number = 0;
     page: number = 0;
+    name: string = "";
+
+    constructor() {
+        for (let prop in this) {
+            console.log(prop, this[prop], typeof this[prop]);
+        }
+            
+    }
 }
 
-enum RouteSegmentType {
-    Static,
-    Argument
-}
-
-interface RouteSegment<T> {
-    part: string | keyof T;
-
+interface RouteSegment {
     render(): string;
 
-    match(segments: string[]): string[];
+    match(segments: string[]): string[] | null;
 }
 
-class RouteSegmentStatic<T> implements RouteSegment<T> {
-    part: string;
-
-    constructor(part: string) {
-        this.part = part;
-    }
-
+class RouteSegmentHash implements RouteSegment {
     render() {
-        return this.part;
+        return "#";
     }
 
     match(segments: string[]) {
         const [segment, ...rest] = segments;
-        if (segment !== this.part) {
+        if (segment !== "#") {
+            return null;
+        }
+
+        console.log("Found hash segment: " + segment + " Rest: " + rest);
+        return rest;
+    }
+
+}
+
+class RouteSegmentStatic implements RouteSegment {
+    constructor(private _part: string) {
+    }
+
+    render() {
+        return this._part;
+    }
+
+    match(segments: string[]) {
+        const [segment, ...rest] = segments;
+        if (segment !== this._part) {
             return null;
         }
 
@@ -72,63 +58,47 @@ class RouteSegmentStatic<T> implements RouteSegment<T> {
 // - https://github.com/angryzor/typesafe-urls
 
 
-class RouteSegmentNumberArgument<T> implements RouteSegment<T> {
-    part: keyof T;
-
-    private _args: T;
-
-    constructor(part: keyof T, args: T) {
-        this.part = part;
-        this._args = args;
+class RouteSegmentArgument<T> implements RouteSegment {
+    constructor(private _part: keyof T, private _args: T) {
     }
 
     render() {
-        return ":" + this.part;
+        return ":" + this._part;
     }
 
     match(segments: string[]) {
         const [segment, ...rest] = segments;
-        console.log("Found argument segment: " + segment + " Rest: " + rest.join("/"));
-
-        const number = Number(segment);
-        if (isNaN(number)) {
-            console.log("INVALID!");
+        if (segment == null || segment === "") {
             return null;
         }
 
-        // todo: general solution for argument using the following:
-        // if (value === "")
-        //     return "";
-        // 
-        // const val = value.toLowerCase();
-        // switch (val) {
-        //     case "true":
-        //         return true;
-        //     case "false":
-        //         return false;
-        // }
-        // 
-        // const number = Number(value);
-        // if (isNaN(number))
-        //     return value;
-        // 
-        // return number;
+        const targetType = typeof this._args[this._part];
+        console.log("Found argument segment: " + segment + " TargetType: " + targetType + " Rest: " + rest.join("/"));
 
+        switch (targetType) {
+            case "number":
+                const number = Number(segment);
+                if (isNaN(number)) {
+                    console.log("INVALID!");
+                    return null;
+                }
+                Object.assign(this._args, { [this._part]: number });
+                return rest;
+            case "string":
+                Object.assign(this._args, { [this._part]: segment });
+                return rest;
+        }
 
-        //let type = typeof this._args[this.part];
-        //console.log(type, typeof segment);
-
-        Object.assign(this._args, { [this.part]: segment });
-        return rest;
+        return null;
     }
 }
 
 export class Route<T> {
-    private _parts: RouteSegment<T>[];
+    private _parts: RouteSegment[];
     private _args: T;
 
     private constructor(args: T) {
-        this._parts = [];
+        this._parts = [new RouteSegmentHash()];
         this._args = args;
     }
 
@@ -141,8 +111,8 @@ export class Route<T> {
         return this;
     }
 
-    number(argument: keyof T) {
-        this._parts.push(new RouteSegmentNumberArgument(argument, this._args));
+    arg(argument: keyof T) {
+        this._parts.push(new RouteSegmentArgument(argument, this._args));
         return this;
     }
 
@@ -151,13 +121,13 @@ export class Route<T> {
     }
 
     match(route: string) {
-        // todo: remove #/ as starter (maybe configurable)
         let segments = route.split("/");
         for (const s of this._parts) {
-            segments = s.match(segments);
-            if (segments === null) {
+            let rest = s.match(segments);
+            if (rest == null) {
                 return null;
             }
+            segments = rest;
         }
 
         return this._args;
@@ -165,10 +135,10 @@ export class Route<T> {
 }
 
 export function run() {
-    const route = Route.create(BlogRouteArgs).static("blogs").number("id").static("page").number("page");
+    const route = Route.create(BlogRoute).static("blogs").arg("name").arg("id").static("page").arg("page");
     console.log(route.render());
 
-    let match = route.match("blogs/12a3/page/4");
+    let match = route.match("#/blogs/vec2k4/1234/page/4");
     console.log("Match: ", match);
 }
 
