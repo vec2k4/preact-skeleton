@@ -4,17 +4,29 @@
     "target": "es5",
     "module": "es6",
     "moduleResolution": "node",
-    "noImplicitAny": true,
-    "removeComments": true,
+
     "noEmitOnError": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "alwaysStrict": true,
+
+    "removeComments": true,
     "sourceMap": true,
+
     "jsx": "react",
     "jsxFactory": "h",
+
     "lib": [
       "es2015",
       "dom",
       "scripthost",
-      "es5" 
+      "es5"
     ],
     "importHelpers": true
   },
