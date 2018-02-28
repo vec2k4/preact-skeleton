@@ -16,8 +16,6 @@ interface ShellState {
 }
 
 export class Shell extends Component<ShellProperties, ShellState> {
-    private dropdownItems: string[];
-
     constructor(props: ShellProperties) {
         super(props);
         this.state = {
@@ -40,7 +38,7 @@ export class Shell extends Component<ShellProperties, ShellState> {
         }, 1000);
     }
 
-    render(props: ShellProperties, state: ShellState) {
+    render(_props: ShellProperties, state: ShellState) {
         return (
             <div>
                 <custom-element custom_attribute="a custom element & attribute defined in typings/jsx" /> 

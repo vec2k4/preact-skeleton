@@ -3,11 +3,11 @@ import { Dropdown as BSDropdown, DropdownElement } from "bootstrap.native";
 
 export interface DropdownItem {
     id?: string | number;
-    name: string;
+    name: string | null
 }
 
 export class DropdownItem {
-    constructor(name: string, id?: string | number) {
+    constructor(name: string | null, id?: string | number) {
         this.name = name;
         this.id = id;
     }
@@ -19,7 +19,7 @@ export class DropdownDivider extends DropdownItem {
     }
 }
 
-export interface DropdownProperties {
+export interface DropdownProps {
     items: DropdownItem[];
     onClick?: (item: DropdownItem) => void;
     onShow?: (event: CustomEvent) => void;
@@ -29,37 +29,36 @@ export interface DropdownProperties {
 }
 
 interface DropdownState {
-    root?: Element;
-    button?: DropdownElement<Element>;
+    root: Element;
+    button: DropdownElement<Element>;
 }
 
-export class Dropdown extends Component<DropdownProperties, DropdownState> {
-    private static readonly showEventType = "show.bs.dropdown";
-    private static readonly shownEventType = "shown.bs.dropdown";
-    private static readonly hideEventType = "hide.bs.dropdown";
-    private static readonly hiddenEventType = "hidden.bs.dropdown";
+export class Dropdown extends Component<DropdownProps, DropdownState> {
+    private static readonly ShowEventType = "show.bs.dropdown";
+    private static readonly ShownEventType = "shown.bs.dropdown";
+    private static readonly HideEventType = "hide.bs.dropdown";
+    private static readonly HiddenEventType = "hidden.bs.dropdown";
 
-    constructor(props: DropdownProperties) {
+    constructor(props: DropdownProps) {
         super(props);
-        this.state = {};
     }
 
     componentDidMount() {
         const state = this.state;
-        const dropdown = new BSDropdown(state.button);
+        new BSDropdown(state.button);
 
          // Attach event handlers
         if (this.props.onShow) {
-            state.root.addEventListener(Dropdown.showEventType, this.props.onShow, false);
+            state.root.addEventListener(Dropdown.ShowEventType, this.props.onShow, false);
         }
         if (this.props.onShown) {
-            state.root.addEventListener(Dropdown.shownEventType, this.props.onShown, false);
+            state.root.addEventListener(Dropdown.ShownEventType, this.props.onShown, false);
         }
         if (this.props.onHide) {
-            state.root.addEventListener(Dropdown.hideEventType, this.props.onHide, false);
+            state.root.addEventListener(Dropdown.HideEventType, this.props.onHide, false);
         }
         if (this.props.onHidden) {
-            state.root.addEventListener(Dropdown.hiddenEventType, this.props.onHidden, false);
+            state.root.addEventListener(Dropdown.HiddenEventType, this.props.onHidden, false);
         }
     }
 
@@ -68,20 +67,21 @@ export class Dropdown extends Component<DropdownProperties, DropdownState> {
 
         // Detach event handlers
         if (this.props.onShow) {
-            state.root.removeEventListener(Dropdown.showEventType, this.props.onShow, false);
+            state.root.removeEventListener(Dropdown.ShowEventType, this.props.onShow, false);
         }
         if (this.props.onShown) {
-            state.root.removeEventListener(Dropdown.shownEventType, this.props.onShown, false);
+            state.root.removeEventListener(Dropdown.ShownEventType, this.props.onShown, false);
         }
         if (this.props.onHide) {
-            state.root.removeEventListener(Dropdown.hideEventType, this.props.onHide, false);
+            state.root.removeEventListener(Dropdown.HideEventType, this.props.onHide, false);
         }
         if (this.props.onHidden) {
-            state.root.removeEventListener(Dropdown.hiddenEventType, this.props.onHidden, false);
+            state.root.removeEventListener(Dropdown.HiddenEventType, this.props.onHidden, false);
         }
     }
 
-    render(props?: DropdownProperties & preact.ComponentProps<this>, state?: DropdownState, context?: any): JSX.Element {
+    render(props: DropdownProps & preact.ComponentProps<this>, state: DropdownState, _context?: any) {
+        state.button = state.button;
         return (
             <div class="dropdown" ref={this.setRoot}>
                 <button class="btn btn-secondary dropdown-toggle" type="button" ref={this.setButton} data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -103,7 +103,7 @@ export class Dropdown extends Component<DropdownProperties, DropdownState> {
         }
     }
 
-    setRoot = (el: Element) => this.state.root = el;
+    setRoot = (el: Element) => this.setState({ root: el });
 
-    setButton = (el: Element) => this.state.button = el;
+    setButton = (el: Element) => this.setState({ button: el });
 }
