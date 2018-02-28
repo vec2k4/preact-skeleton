@@ -7,7 +7,10 @@ import "../styles/style.scss";
 import { h, render } from "preact";
 import { Shell } from "./components/shell/shell";
 import { AsyncFetch } from "./model/async-fetch";
+import { run } from "./utils/router";
 
-AsyncFetch.fetchIndex().then(() => console.log(`${nameof<AsyncFetch>()} finished.`));
+//AsyncFetch.fetchIndex().then(() => console.log(`${nameof<AsyncFetch>()} finished.`));
+run();
+
 
 render(<Shell />, document.body);
